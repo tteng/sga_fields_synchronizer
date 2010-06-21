@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "sga_fields_synchronizer"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{A synchronizer for most frequently edited columns}
+    gem.description = %Q{ A synchronizer for most frequently edited columns based on yml file}
     gem.email = "tim.rubist@gmail.com"
     gem.homepage = "http://github.com/tteng/sga_fields_synchronizer"
     gem.authors = ["tim.teng"]
