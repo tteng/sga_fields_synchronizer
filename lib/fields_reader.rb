@@ -2,7 +2,7 @@ require 'yaml'
 
 class FieldsReader
 
-  YAML_PATH = File.join(RAILS_ROOT, "config", "fields_dictionanry.yml")
+  YAML_PATH = File.join(RAILS_ROOT, "config", "fields_dictionary.yml")
 
   class << self
 
@@ -29,7 +29,5 @@ class FieldsReader
     end
 
   end
-
-  self.init
 
 end

@@ -1,0 +1,209 @@
+# 公共属性, refers: http://sgftrac/trac/wiki/DataDictionary
+# By TengXianggong, 20100617
+# 数据结构：
+
+# 属性名
+# - 前台显示名称
+# - 数据类型
+# - [最小值，最大值] 
+
+
+####################################################
+############   Shared      Fields           ########
+############   Last edited by Tengxianggong ########
+############   Last edited at Jun 17, 2010  ########
+####################################################
+configs:
+
+  common_fields: &common_fields
+    name: 
+      - "名称"
+      - "string"
+    job_id: 
+      - "职业类型"
+      - "integer"
+      - :limit: 10
+        :default: 1
+    level: 
+      - "等级"
+      - "integer"
+      - :default: 1
+    health_point: 
+      - "生命值"
+      - "integer"
+    max_health_point: 
+      - "生命上限"
+      - "integer"
+    magic_point: 
+      - "魔法值"
+      - "integer"
+    max_magic_point:
+      - "魔法上限"
+      - "integer"
+    max_attack_point:
+      - "最大攻击力"
+      - "integer"
+    min_attack_point:
+      - "最小攻击力"
+      - "integer"
+    max_magic_attack_point:
+      - "最大法术攻击力"
+      - "integer"
+    min_magic_attack_point: 
+      - "最小法术攻击力"
+      - "integer"
+    max_defence_point:
+      - "最大防御力" 
+      - "integer"
+    min_defence_point:
+      - "最小防御力" 
+      - "integer"
+    max_magic_defence_point:
+      - "最大法术防御力" 
+      - "integer"
+    min_magic_defence_point:
+      - "最小法术防御力" 
+      - "integer"
+    health_restore_speed: 
+      - "生命恢复"
+      - "integer"
+    magic_restore_speed:
+      - "法力恢复"
+      - "integer"
+    attack_hit_rate: 
+      - "物理命中率"
+      - "integer"
+    magic_hit_rate: 
+      - "魔法命中率"
+      - "integer"
+    attack_dodge_rate: 
+      - "物理闪避率"
+      - "integer"
+    magic_dodge_rate: 
+      - "魔法闪避率"
+      - "integer"
+    power_hit_rate: 
+      - "暴击率"
+      - "integer"
+    power_hit_point: 
+      - "暴击威力"
+      - "integer"
+    explode_point: 
+      - "爆发值"
+      - "integer"
+    luck_point: 
+      - "幸运值"
+      - "integer"
+    defence_rate: 
+      - "伤害减免概率"
+      - "integer"
+    defence_level: 
+      - "伤害减免等级"
+      - "integer"
+    move_speed: 
+      - "行走速度"
+      - "integer"
+    attack_speed: 
+      - "攻击速度"
+      - "integer"
+    fire_attack: 
+      - "火属性伤害"
+      - "integer"
+    thunder_attack:
+      - "雷属性伤害"
+      - "integer"
+    ice_attack: 
+      - "冰属性伤害"
+      - "integer"
+    poison_attack: 
+      - "毒属性伤害"
+      - "integer"
+    fire_defence: 
+      - "火属性防御"
+      - "integer"
+    thunder_defence:
+      - "雷属性防御"
+      - "integer"
+    ice_defence: 
+      - "冰属性防御"
+      - "integer"
+    poison_defence: 
+      - "毒属性防御"
+      - "integer"
+  
+####################################################
+############   PlayerCharacter Fields       ########
+############   Last edited by Tengxianggong ########
+############   Last edited at Jun 17, 2010  ########
+####################################################
+ 
+  player_characters: 
+
+    <<: *common_fields
+
+    gender: 
+      - "性别"
+      - "integer"
+    head_picture: 
+      - "头像"
+      - "integer"
+    hair_style:
+      - "发型"
+      - "integer"
+    hair_color:
+      - "发色"
+      - "integer"
+    exp:
+      - "经验值"
+      - "integer"
+    stage:
+      - "修仙阶段"
+      - "integer"
+    skill_point:
+      - "元神点数"
+      - "integer"
+    fame_point:
+      - "声望值" 
+      - "integer"
+    contribution_point:
+      - "贡献值"
+      - "integer"
+    pk_point:
+      - "PK值"
+      - "integer"
+    family_id:
+      - "归属家族"
+      - "integer"
+    house_id:
+      - "归属门派"
+      - "integer"
+    attack_talisman:
+      - "攻击法宝"
+      - "integer"
+    defence_talisman:
+      - "防御法宝"
+      - "integer"
+    assist_talisman:
+      - "辅助法宝"
+      - "integer"
+    left_finger:
+      - "左手指"
+      - "integer"
+    right_finger:
+      - "右手指"
+      - "integer"
+    shoes:
+      - "鞋子"
+      - "integer"
+    helmet:
+      - "头盔"
+      - "integer"
+    necklace:
+      - "项链"
+      - "integer"
+    clothing:
+      - "衣服"
+      - "integer"
+    cloaks:
+      - "披风"
+      - "integer"

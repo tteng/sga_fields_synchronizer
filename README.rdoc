@@ -1,6 +1,32 @@
 = sga_fields_synchronizer
 
-Description goes here.
+  Sometimes we have some table fields change frequently, espically for me, we are now building a flash game, there're many characters table, each has many attributes(fields). Game planners 
+frequently change them, they send me a excel file or whatever, I have to diff it with the previous one, get the changes, put them into migration file and finnally apply to database.
+It takes me much time and it's really a born job. So, I coded this migration generator to save my time.
+  
+  sga_fields_synchronizer is based on a configure file, which defines the table structure, once you have any modification on the table, just edit the yml file, change the column defination, 
+or just remove the node (if you intend to remove the column) 
+
+== Installation
+
+  gem install sga_fields_synchronizer
+
+== Usage
+
+  First, run './script/generate fields_synchronizer init' to copy the configure yml into config/ folder
+
+  Second, after you editing the yml file properly, just type './script/generate fields_synchronizer sync' to generate migration file
+
+  Third, invoke 'rake db:migrate' to apply the chages
+
+  You also can generate migrations excluded specified tables with '--skip-table' option, this will automatically excluded tables you specified. By default, sga_fields_synchronizer will skip table "common_fields".
+  
+  Once you want to apply DRY principle on your cofigure file, just reference the sample yml file.
+
+== Configure file
+ 
+  the root node of the configure file is "configs" by convention, so don't remove that node. the subsequent nodes are tables. Each table field is defined as Array, the first element is the translation
+the second is the field type, such as string, text, integer, etc. The third element is optional, it stands for column options. 
 
 == Note on Patches/Pull Requests
  
