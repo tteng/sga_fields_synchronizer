@@ -12,7 +12,8 @@ class <%= migration_name %> < ActiveRecord::Migration
   end
 
   def options_from_target_column hash
-    hash.map{|el| el[0]=":#{el[0]}"; el * " => "} * ", " 
+    return if hash.nil?
+    " ," + hash.map{|el| el[0]=":#{el[0]}"; el * " => "} * ", " 
   end
 %>
   def self.up
@@ -21,11 +22,11 @@ class <%= migration_name %> < ActiveRecord::Migration
     <% end %>
 
     <% added_columns.each_pair do |col, col_info| %>
-      add_column :<%=table_name%>, :<%=col%>, :<%=col_info[1]%>, <%= options_from_target_column col_info[2] %>
+      add_column :<%=table_name%>, :<%=col%>, :<%=col_info[1]%> <%= options_from_target_column col_info[2] %>
     <% end %>
 
     <% changed_columns.each_pair do |col, col_info| %>
-      change_column :<%=table_name%>, :<%=col%>, :<%=col_info[0][1]%>, <%= options_from_target_column col_info[0][2]%>
+      change_column :<%=table_name%>, :<%=col%>, :<%=col_info[0][1]%> <%= options_from_target_column col_info[0][2]%>
     <% end %>
   end
   

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["tim.teng"]
-  s.date = %q{2010-06-23}
+  s.date = %q{2010-06-25}
   s.description = %q{ A synchronizer for most frequently edited columns based on yml file}
   s.email = %q{tim.rubist@gmail.com}
   s.extra_rdoc_files = [
