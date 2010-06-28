@@ -50,7 +50,7 @@ class FieldsSynchronizerGenerator < Rails::Generator::Base
                                  :added_columns => added_columns,
                                  :table_name => t
                                },
-                               :migration_file_name => migration_name.camelize 
+                               :migration_file_name => migration_name
           end
         end
 
