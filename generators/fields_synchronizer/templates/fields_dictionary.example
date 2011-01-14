@@ -5,7 +5,7 @@
 # 属性名
 # - 前台显示名称
 # - 数据类型
-# - 字段属性(hash)
+# - [最小值，最大值] 
 
 
 ####################################################
@@ -16,194 +16,733 @@
 configs:
 
   common_fields: &common_fields
-    name: 
+    1id:
+      - "Id"
+      - "integer"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    2created_at:
+      - "创建时间"
+      - "datetime"
+    3updated_at:
+      - "更新时间"
+      - "datetime"
+    4name: 
       - "名称"
       - "string"
-    job_id: 
+    5job_id: 
       - "职业类型"
       - "integer"
-      - :limit: 10
-        :default: 1
-    level: 
+    6level: 
       - "等级"
       - "integer"
-      - :default: 1
-    health_point: 
+    7health_point: 
       - "生命值"
       - "integer"
-    max_health_point: 
+    8max_health_point: 
       - "生命上限"
       - "integer"
-    magic_point: 
+    9magic_point: 
       - "魔法值"
       - "integer"
-    max_magic_point:
+    10max_magic_point:
       - "魔法上限"
       - "integer"
-    max_attack_point:
+    11max_attack_point:
       - "最大攻击力"
       - "integer"
-    min_attack_point:
+    12min_attack_point:
       - "最小攻击力"
       - "integer"
-    max_magic_attack_point:
+    13max_magic_attack_point:
       - "最大法术攻击力"
       - "integer"
-    min_magic_attack_point: 
+    14min_magic_attack_point: 
       - "最小法术攻击力"
       - "integer"
-    max_defence_point:
+    15max_defence_point:
       - "最大防御力" 
       - "integer"
-    min_defence_point:
+    16min_defence_point:
       - "最小防御力" 
       - "integer"
-    max_magic_defence_point:
+    17max_magic_defence_point:
       - "最大法术防御力" 
       - "integer"
-    min_magic_defence_point:
+    18min_magic_defence_point:
       - "最小法术防御力" 
       - "integer"
-    health_restore_speed: 
+    19health_restore_speed: 
       - "生命恢复"
       - "integer"
-    magic_restore_speed:
+    20magic_restore_speed:
       - "法力恢复"
       - "integer"
-    attack_hit_rate: 
-      - "物理命中率"
+    21hit_rate: 
+      - "命中率"
       - "integer"
-    magic_hit_rate: 
-      - "魔法命中率"
+    22attack_dodge_rate: 
+      - "闪避率"
       - "integer"
-    attack_dodge_rate: 
-      - "物理闪避率"
-      - "integer"
-    magic_dodge_rate: 
-      - "魔法闪避率"
-      - "integer"
-    power_hit_rate: 
+    23power_hit_rate: 
       - "暴击率"
       - "integer"
-    power_hit_point: 
+    24power_hit_point: 
       - "暴击威力"
       - "integer"
-    explode_point: 
+    25explode_point: 
       - "爆发值"
       - "integer"
-    luck_point: 
+    26luck_point: 
       - "幸运值"
       - "integer"
-    defence_rate: 
+    27defence_rate: 
       - "伤害减免概率"
       - "integer"
-    defence_level: 
+    28defence_level: 
       - "伤害减免等级"
       - "integer"
-    move_speed: 
+    29move_speed: 
       - "行走速度"
       - "integer"
-    attack_speed: 
+    30attack_speed: 
       - "攻击速度"
       - "integer"
-    fire_attack: 
-      - "火属性伤害"
+  jobs:
+
+    0title:
+      - "名称"
+      - "string"
+      - :limit: 15
+    31user_id:
+      - "创建人"
       - "integer"
-    thunder_attack:
-      - "雷属性伤害"
-      - "integer"
-    ice_attack: 
-      - "冰属性伤害"
-      - "integer"
-    poison_attack: 
-      - "毒属性伤害"
-      - "integer"
-    fire_defence: 
-      - "火属性防御"
-      - "integer"
-    thunder_defence:
-      - "雷属性防御"
-      - "integer"
-    ice_defence: 
-      - "冰属性防御"
-      - "integer"
-    poison_defence: 
-      - "毒属性防御"
-      - "integer"
+
+    <<: *common_fields
   
-####################################################
-############   PlayerCharacter Fields       ########
-############   Last edited by Tengxianggong ########
-############   Last edited at Jun 17, 2010  ########
-####################################################
- 
-  player_characters: 
+  monsters: 
 
     <<: *common_fields
 
-    gender: 
-      - "性别"
+    0nick_name: 
+      - "内部代号"
+      - "string"
+
+    32health_point_line_n:
+      - "生命值倍数"
       - "integer"
-    head_picture: 
+    33move_kind:
+      - "移动类型"
+      - "integer"
+    34injury_type:
+      - "受伤类型"
+      - "integer"
+    35death_effect:
+      - "死亡特效"
+      - "integer"
+    36base_bonus_rate:
+      - "基础爆率"
+      - "integer"
+    37bonus_n:
+      - "爆出数量"
+      - "integer"
+    38bonus_exp:
+      - "奖励经验"
+      - "integer"
+    90version: # Runmway development columns # Monster acts_as_versioned magic column
+      - "版本" 
+      - "integer"
+    39priority:
+      - "开发优先级"
+      - "integer"
+    98user_id:
+      - "创建者"
+      - "integer"
+    39monster_id:
+      - "父怪兽" #clone monster
+      - "integer"
+    40guard_distance:
+      - "警戒范围"
+      - "integer"
+    41call_distance:
+      - "呼叫距离"
+      - "integer"
+    42yield_rate:
+      - "物品爆率"
+      - "integer"
+    43white_box:
+      - "动态属性"
+      - "text"
+    44board_icon_id:
       - "头像"
       - "integer"
-    hair_style:
-      - "发型"
+
+  props:
+    1id:
+      - "Id"
       - "integer"
-    hair_color:
-      - "发色"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    2created_at:
+      - "创建时间"
+      - "datetime"
+    3updated_at:
+      - "更新时间"
+      - "datetime"
+    4name:
+      - "名称"
+      - "string"
+    5tip:
+      - "Tips"
+      - "string"
+    6superimposed_count:
+      - "叠加数量"
       - "integer"
-    exp:
-      - "经验值"
+    7level_effect:
+      - "等级特效"
       - "integer"
-    stage:
-      - "修仙阶段"
+    8item_type_id:
+      - "道具类型"
       - "integer"
-    skill_point:
-      - "元神点数"
+    9duration:
+      - "耐久"
       - "integer"
-    fame_point:
-      - "声望值" 
+    10recycling_price:
+      - "回收价格"
       - "integer"
-    contribution_point:
-      - "贡献值"
+    11payment_type:
+      - "支付类型"
       - "integer"
-    pk_point:
-      - "PK值"
+    12user_id:
+      - "创建者"
       - "integer"
-    family_id:
-      - "归属家族"
+    13price_in_coupon:
+      - "点券价格"
       - "integer"
-    house_id:
-      - "归属门派"
+    14board_icon_id:
+      - "展示图"
       - "integer"
-    attack_talisman:
-      - "攻击法宝"
+    15ground_icon_id:
+      - "落地图"
       - "integer"
-    defence_talisman:
-      - "防御法宝"
+    16price_in_gold:
+      - "金币价格"
       - "integer"
-    assist_talisman:
-      - "辅助法宝"
+    17embattlable:
+      - "玩家战斗状态是否可用"
+      - "integer" 
+    18prerequisite_level:
+      - "玩家等级门槛"
       - "integer"
-    left_finger:
-      - "左手指"
+    19cooling_time:
+      - "冷却时间"
       - "integer"
-    right_finger:
-      - "右手指"
+    20white_box:
+      - "动态字段"
+      - "text"
+  prop_level_up_templates:
+    1id:
+      - "Id"
       - "integer"
-    shoes:
-      - "鞋子"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    2probability:
+      - "升级概率"
+      - "float"
+    3prop_id:
+      - "道具"
       - "integer"
-    helmet:
-      - "头盔"
+    4level: 
+      - "等级"
+      - "integer"   
+    5created_at:
+      - "创建时间"
+      - "datetime"
+    6updated_at:
+      - "更新时间"
+      - "datetime"
+
+
+  skills:
+    1id:
+      - "Id"
       - "integer"
-    necklace:
-      - "项链"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    
+    2title:
+      - "技能名称"
+      - "string"
+    3tip:
+      - "Tip"    
+      - "string"
+    4description:
+      - "描述"    
+      - "text"
+    5cast_preparation:
+      - "吟唱时间"
       - "integer"
-    clothing:
-      - "衣服"
+    6continuous_attack:
+      - "持续攻击"
+      - "boolean"
+    7cd_interval:
+      - "CD时间"
       - "integer"
-    cloaks:
-      - "披风"
+    8prerequisite_prop_id:
+      - "检测道具"
       - "integer"
+    9hp:
+      - "消耗HP"   
+      - "integer"
+    10mp:
+      - "消耗MP"
+      - "integer"  
+    11board_icon_id:
+      - "展示图"
+      - "integer"
+    12sprit:
+      - "消耗灵力"
+      - "integer"
+    13skill_type_id:
+      - "技能类型"    
+      - "integer"
+    14effect_wuid:
+      - "受法者特效"
+      - "string"
+    15intonate_effect:
+      - "吟唱特效"
+      - "string"
+    16wink_effect:
+      - "施法瞬发特效"
+      - "string"
+    17effect_scope:
+      - "作用范围"
+      - "integer" 
+    18attack_distance:    
+      - "施法距离"
+      - "integer"
+    19created_at:
+      - "创建时间"
+      - "datetime"
+    20updated_at:
+      - "更新时间"
+      - "datetime"
+    99version: # Runmway development columns # Monster acts_as_versioned magic column
+      - "版本" 
+      - "integer"
+
+  equips: 
+    1id:
+      - "Id"
+      - "integer"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    2title: 
+      - "名称"
+      - "string"
+    4prerequisite_level:
+      - "玩家等级门槛"
+      - "integer"
+    3job_id: 
+      - "职业类型"
+      - "integer"
+    4body_type_id:
+      - "体型"
+      - "integer"
+    9enhancement_id:
+      - "强化模板"
+      - "integer"
+    10basic_ability1:
+      - "基础能力1"
+      - "string"
+    11basic_ability2:
+      - "基础能力2"
+      - "string"
+    12extended_ability1:
+      - "扩展能力1"
+      - "string"
+    13extended_ability2:
+      - "扩展能力2"
+      - "string"
+    14tip:
+      - "Tip"
+      - "string" 
+    15board_icon_id:
+      - "展示图"
+      - "integer"
+    16ground_icon_id:
+      - "落地图"
+      - "integer"
+    18superimposed_count:
+      - "叠加数量"
+      - "integer"
+    8quality_level:
+      - "品质等级" 
+      - "integer"
+    5item_type_id:
+      - "装备位置"
+      - "integer"
+    6duration:
+      - "耐久"
+      - "integer"
+    20price_in_coupon:
+      - "点券价格"
+      - "integer"
+    19price_in_gold:
+      - "金币价格"
+      - "integer"
+    21repurchase_price:
+      - "回收价格"
+      - "integer"
+    7forge_level:
+      - "锻造等级"
+      - "integer" 
+    17bind_with_player:
+      - "与玩家绑定"
+      - "boolean"
+    55version: # Runmway development columns # Monster acts_as_versioned magic column
+      - "版本" 
+      - "integer"
+    56created_at:
+      - "创建时间"
+      - "datetime"
+    57updated_at:
+      - "更新时间"
+      - "datetime"
+
+  level_up_templates:
+    1id:
+      - "Id"
+      - "integer"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    2level: 
+      - "等级"
+      - "integer"   
+    3equip_id: 
+      - "装备"
+      - "integer"   
+    4add_max_health_point:
+      - "叠加生命值上限(范围)"
+      - "string"
+      - :limit: 10
+    5add_max_magic_point:
+      - "叠加法力值上限(范围)"
+      - "string"
+      - :limit: 10
+    6add_max_attack_point:
+      - "叠加攻击值上限(范围)"
+      - "string"
+      - :limit: 10
+    7add_min_attack_point:
+      - "叠加攻击值下限(范围)"
+      - "string"
+      - :limit: 10
+    8add_min_magic_attack_point:
+      - "叠加法术攻击值下限(范围)"
+      - "string"
+      - :limit: 10
+    9add_max_magic_attack_point:
+      - "叠加法术攻击值上限(范围)"
+      - "string"
+      - :limit: 10
+    10add_max_defence_point:
+      - "叠加防御值上限(范围)"    
+      - "string"
+      - :limit: 10
+    11add_min_defence_point:
+      - "叠加防御值下限(范围)"
+      - "string"
+      - :limit: 10
+    12add_max_magic_defence_point:
+      - "叠加法术防御值上限(范围)"    
+      - "string"
+      - :limit: 10
+    13add_min_magic_defence_point:
+      - "叠加法术防御值下限(范围)"    
+      - "string"
+      - :limit: 10
+    14add_luck_point: 
+      - "叠加幸运值(范围)"
+      - "string"
+      - :limit: 10
+    15add_hit_rate:
+      - "叠加命中率(范围)"
+      - "string"
+      - :limit: 10
+    16add_attack_dodge_rate:
+      - "叠加闪避率(范围)"
+      - "string"
+      - :limit: 10
+    17add_defence_rate:
+      - "叠加伤害减免率(范围)"
+      - "string"
+      - :limit: 10
+    18add_defence_level:
+      - "叠加伤害减免等级(范围)"
+      - "string"
+      - :limit: 10
+    19add_magic_restore_speed: 
+      - "叠加法术恢复(范围)"
+      - "string"
+      - :limit: 10
+    20created_at:
+      - "创建时间"
+      - "datetime"
+    21updated_at:
+      - "更新时间"
+      - "datetime"
+
+  fabaos:
+
+    1id:
+      - "Id"
+      - "integer"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    2title: 
+      - "名称"
+      - "string"
+    3enhancement_id:
+      - "强化模板"
+      - "integer"
+    4job_id: 
+      - "职业类型"
+      - "integer"
+    5effect_wuid:
+      - "动画特效"
+      - "string"
+    6superimposed_count:
+      - "叠加数量"
+      - "integer"
+    7quality_level:
+      - "法宝品质" 
+      - "integer"
+    8price_to_buy:
+      - "买入价格"
+      - "integer"
+    9price_to_sell:
+      - "卖出价格"
+      - "integer"
+    10prerequisite_level:
+      - "玩家等级门槛"
+      - "integer"
+    11price_in_store:
+      - "商场价格"
+      - "integer"
+    12ground_icon_id:
+      - "落地图"
+      - "integer"
+    13board_icon_id:
+      - "展示图"
+      - "integer"
+    14tip:
+      - "Tip"
+      - "string"
+    15bind_with_player:
+      - "与玩家绑定"
+      - "boolean"
+    99version: # Runmway development columns # Monster acts_as_versioned magic column
+      - "版本" 
+      - "integer"
+    98created_at:
+      - "创建时间"
+      - "datetime"
+    97updated_at:
+      - "更新时间"
+      - "datetime"
+
+  prescriptions:
+    1id:
+      - "Id"
+      - "integer"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    2title: 
+      - "名称"
+      - "string"
+    3max_level:
+      - "最大升级等级"
+      - "integer"
+    4furnace_loss:
+      - "鼎炉损耗"
+      - "integer"
+    5coin_consumption:
+      - "金币消耗" 
+      - "integer"
+    6prop_id: 
+      - "配方道具"
+      - "integer"
+    90version: # Runmway development columns # Monster acts_as_versioned magic column
+      - "版本" 
+      - "integer"
+    91created_at:
+      - "创建时间"
+      - "datetime"
+    92updated_at:
+      - "更新时间"
+      - "datetime"
+
+  fb_level_up_templates:
+    1id:
+      - "Id"
+      - "integer"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    2skill_id:
+      - "技能"
+      - "integer"
+    3level: 
+      - "等级"
+      - "integer"   
+    4fabao_id: 
+      - "法宝"
+      - "integer"   
+    5max_sprit_power:
+      - "灵力上限"
+      - "integer"
+    6current_sprit_power:
+      - "当前灵力"
+      - "integer"
+    7tip:
+      - "Tip"
+      - "string"
+    80created_at:
+      - "创建时间"
+      - "datetime"
+    90updated_at:
+      - "更新时间"
+      - "datetime"
+  
+  prescription_level_up_templates:
+    1id:
+      - "Id"
+      - "integer"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    2prescription_id:
+      - "配方"
+      - "integer"
+    3reaction_time:
+      - "炼化时间"
+      - "integer"
+    4max_failure_probability:
+      - "最大失败率"
+      - "float"
+    5min_failure_probability:
+      - "最小失败率"
+      - "float"
+    6yield_count:
+      - "标准产量"
+      - "integer"
+    7max_yield_rate: 
+      - "最大产量率"
+      - "float"
+    8min_yield_rate: 
+      - "最小产量率"
+      - "float"
+    9level: 
+      - "等级"
+      - "integer"   
+    100created_at:
+      - "创建时间"
+      - "datetime"
+    110updated_at:
+      - "更新时间"
+      - "datetime"
+  tasks:
+    1id:
+      - "Id"
+      - "integer"
+      - :null: false
+        :primary: true        
+        :limit: 4
+    2title:
+      - "名称"
+      - "string"
+    3category:
+      - "类别"
+      - "integer"
+    4prerequisite_level:
+      - "玩家门槛(级)"
+      - "integer"
+    5award_coin:
+      - "奖励铜版" 
+      - "integer"
+    6award_yuanbao:
+      - "奖励元宝" 
+      - "integer"
+    7award_spirit:
+      - "奖励灵根点数"
+      - "integer"
+    8award_experience:
+      - "奖励经验"
+      - "integer"
+    9description:
+      - "描述"
+      - "text"
+    10objective: 
+      - "任务目标"
+      - "text"
+    11scene_id: 
+      - "领取场景"
+      - "integer"
+    12assignable_count:
+      - "可做次数"
+      - "integer"
+    13time_limit:  
+      - "时限(分钟)"
+      - "integer"
+    14user_id:    
+      - "创建人"
+      - "integer"
+    15last_updated_by: 
+      - "最后更新者"
+      - "integer"
+    16task_level: 
+      - "任务等级"
+      - "integer"
+    17prerequisite_task_id:
+      - "前提任务"
+      - "integer"
+    18customize_index:
+      - "序号"
+      - "integer"
+    19triger_type:
+      - "触发方式"
+      - "integer"
+    20triger_prop_id:
+      - "触发道具"
+      - "integer"
+    21commit_type:
+      - "提交方式"
+      - "integer"
+    22receive_npc_id:
+      - "接收任务NPC"
+      - "integer"
+    23commit_npc_id:
+      - "提交任务NPC"
+      - "integer"
+    24auto_popup:
+      - "自动弹出窗口"
+      - "boolean" 
+    25able_to_give_up:
+      - "可放弃"
+      - "boolean"
+    90created_at:
+      - "创建时间"
+      - "datetime"
+    91updated_at:
+      - "更新时间"
+      - "datetime"
+
