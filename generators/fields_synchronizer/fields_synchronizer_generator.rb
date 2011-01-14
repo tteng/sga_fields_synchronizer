@@ -26,7 +26,6 @@ class FieldsSynchronizerGenerator < Rails::Generator::Base
         end
 
       elsif(@action_to_invoke == "sync")
-
         FieldsReader.init
         skipped_tables = (options[:skipped_table] || []) << "common_fields"
         dictionary = File.join(RAILS_ROOT,'config','fields_dictionary.yml')
@@ -78,7 +77,8 @@ class FieldsSynchronizerGenerator < Rails::Generator::Base
 
   def get_to_be_deleted_columns tab_cols, tgt_cols
     tab_cols_dup = tab_cols.dup
-    tab_cols_dup.delete_if{|k,v| tgt_cols.keys.include?(k)}
+    tgt_col_keys = tgt_cols.keys.collect{|key| (key =~ /^\d{1,}([^\d].*)$/) ? $1 : key}
+    tab_cols_dup.delete_if{|k,v| tgt_col_keys.include?(k)}
     tab_cols_dup
   end
 
@@ -90,21 +90,24 @@ class FieldsSynchronizerGenerator < Rails::Generator::Base
   end
 
   def get_changed_columns tab_cols, tgt_cols
-    (tab_cols.keys & tgt_cols.keys).inject({}) do |hash, col|
+    tgt_cols_hash = {}
+    tgt_col_keys = tgt_cols.keys.collect{|key| (key =~ /^\d{1,}([^\d].*)$/) ? (tgt_cols_hash[$1] = key; $1) : key}
+    (tab_cols.keys & tgt_col_keys).inject({}) do |hash, col|
       origin_type = tab_cols[col].type.to_s
-      target_type = tgt_cols[col][1]
+      target_col = tgt_cols_hash[col] || col
+      target_type = tgt_cols[target_col][1]
       if origin_type == target_type
-        unless(target_col_options = tgt_cols[col][2]).blank?
+        unless(target_col_options = tgt_cols[target_col][2]).blank?
           [:null, :default, :limit, :precision, :scale].each do |k|
             next unless target_col_options.keys.include?(k)
             if target_col_options[k] != tab_cols[col].send(k)
-              hash[col] = [tgt_cols[col], tab_cols[col]]
+              hash[col] = [tgt_cols[target_col], tab_cols[col]]
               break
             end
           end 
         end 
       else
-        hash[col] = [tgt_cols[col], tab_cols[col]]
+        hash[col] = [tgt_cols[target_col], tab_cols[col]]
       end
       hash 
     end
@@ -112,8 +115,12 @@ class FieldsSynchronizerGenerator < Rails::Generator::Base
 
   def get_added_columns tab_cols, tgt_cols
     tgt_dup = tgt_cols.dup
-    tgt_dup.delete_if {|k,v| tab_cols.keys.include?(k)}
-    tgt_dup
+    converted_cols = {}
+    tgt_dup.each_pair do |k,v|
+      converted_cols[(k =~ /^\d{1,}([^\d].*)$/) ? $1 : k] = v
+    end
+    converted_cols.delete_if {|k,v| tab_cols.keys.include?(k)}
+    converted_cols
   end
 
   def migration_prefix
